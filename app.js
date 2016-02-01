@@ -2,7 +2,10 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  res.json({
+    ipaddress: ip
+  });
 });
 
 app.listen(8080, function () {
